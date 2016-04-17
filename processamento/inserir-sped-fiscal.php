@@ -14,6 +14,9 @@ require_once '../model/Reg0190.php';
 require_once '../model/Reg0220.php';
 require_once '../model/RegC100.php';
 require_once '../model/RegC170.php';
+require_once '../model/RegH005.php';
+require_once '../model/RegH010.php';
+require_once '../model/RegC425.php';
 require_once '../dao/DaoReg0000.php';
 require_once '../dao/DaoReg0150.php';
 require_once '../dao/DaoReg0200.php';
@@ -22,21 +25,29 @@ require_once '../dao/DaoReg0205.php';
 require_once '../dao/DaoReg0220.php';
 require_once '../dao/DaoRegC100.php';
 require_once '../dao/DaoRegC170.php';
+require_once '../dao/DaoRegC425.php';
+require_once '../dao/DaoRegH005.php';
+require_once '../dao/DaoRegH010.php';
+
 $dir_speds = 'speds/';
-$contaLinhas = 0;
-$conta0000= 0;
-$conta0150= 0;
-$conta0190= 0;
-$conta0200= 0;
-$conta0205= 0;
-$conta0220= 0;
-$contaC100= 0;
-$contaC170= 0;
+
 
 $speds = dir($dir_speds);
 while ($arquivo = $speds->read()) {
     if (!is_dir($arquivo)) {
         $linhas = file($dir_speds . $arquivo);
+        $contaLinhas = 0;
+        $conta0000= 0;
+        $conta0150= 0;
+        $conta0190= 0;
+        $conta0200= 0;
+        $conta0205= 0;
+        $conta0220= 0;
+        $contaC100= 0;
+        $contaC170= 0;
+        $contaH005= 0;
+        $contaH010= 0;
+        $contaC425= 0;
         foreach ($linhas as $linha) {
             $contaLinhas = $contaLinhas +1;
             if ($linha[0] == '|') {
@@ -100,7 +111,8 @@ while ($arquivo = $speds->read()) {
                     $regC100 = new RegC100();
                     $regC100->populaSped($linha);
                     $PersistenciaRegC100 = new DaoRegC100();
-                    if($PersistenciaRegC100->createSped($regC100,$reg0000->getDtIni(),$contaLinhas)){
+                    $linhaC100 = $contaLinhas;
+                    if($PersistenciaRegC100->createSped($regC100,$reg0000->getDtIni(),$linhaC100)){
                         $contaC100 = $contaC100 +1;
                     } else {
                         // TODO contagem nao adicionada
@@ -110,8 +122,44 @@ while ($arquivo = $speds->read()) {
                     $regC170 = new RegC170();
                     $regC170->populaSped($linha);
                     $PersistenciaRegC170 = new DaoRegC170();
-                    if($PersistenciaRegC170->createSped($regC170,$reg0000->getDtIni(),$contaLinhas)){
+                    if($PersistenciaRegC170->createSped($regC170,$reg0000->getDtIni(),$contaLinhas,$linhaC100)){
                         $contaC170 = $contaC170 +1;
+                    } else {
+                        // TODO contagem nao adicionada
+                    }
+                }
+
+                if($l[1]=='C425'){
+                    $regC425 = new RegC425();
+                    $regC425->populaSped($linha);
+                    $PersistenciaRegC425 = new DaoRegC425();
+                    if($PersistenciaRegC425->createSped($regC425,$reg0000->getDtIni(),$contaLinhas)){
+                        $contaC425 +=1;
+                    } else {
+                        // TODO contagem nao adicionada
+                    }
+
+                }
+
+                if($l[1]=='H005'){
+                    $regH005 = new RegH005();
+                    $regH005->populaSped($linha);
+                    $PersistenciaRegH005 = new DaoRegH005();
+                    if($PersistenciaRegH005->createSped($regH005,$reg0000->getDtIni(),$contaLinhas)){
+                        $contaH005 += 1;
+                    } else {
+                        // TODO contagem nao adicionada
+                    }
+                }
+
+                if($l[1]=='H010'){
+                    $regH010 = new RegH010();
+                    $regH010->populaSped($linha,$regH005->getDtInv());
+                    $PersistenciaRegH010 = new DaoRegH010();
+                    if($PersistenciaRegH010->createSped($regH010,$reg0000->getDtIni(),$contaLinhas)){
+                        $contaH010 += 1;
+                    } else {
+                        // TODO contagem nao adicionada
                     }
                 }
 
@@ -121,15 +169,19 @@ while ($arquivo = $speds->read()) {
 
             }
         }
+        echo "Arquivo referente a {$reg0000->getNome()} do periodo {$reg0000->getDtIni()} ate {$reg0000->getDtFin()}<br/>";
+        echo "Total de linhas verificadas {$contaLinhas}<br/>";
+        echo "Total de Registros 0000 = {$conta0000} <br/>";
+        echo "Total de Registros 0150 = {$conta0150} <br/>";
+        echo "Total de Registros 0190 = {$conta0190} <br/>";
+        echo "Total de Registros 0200 = {$conta0200} <br/>";
+        echo "Total de Registros 0205 = {$conta0205} <br/>";
+        echo "Total de Registros 0220 = {$conta0220} <br/>";
+        echo "Total de Registros C100 = {$contaC100} <br/>";
+        echo "Total de Registros C170 = {$contaC170} <br/>";
+        echo "Total de Registros C425 = {$contaC425} <br/>";
+        echo "Total de Registros H005 = {$contaH005} <br/>";
+        echo "Total de Registros H010 = {$contaH010} <br/>";
     }
 }
 
-echo "Total de linhas verificadas {$contaLinhas}<br/>";
-echo "Total de Registros 0000 = {$conta0000} <br/>";
-echo "Total de Registros 0150 = {$conta0150} <br/>";
-echo "Total de Registros 0190 = {$conta0190} <br/>";
-echo "Total de Registros 0200 = {$conta0200} <br/>";
-echo "Total de Registros 0205 = {$conta0205} <br/>";
-echo "Total de Registros 0220 = {$conta0220} <br/>";
-echo "Total de Registros C100 = {$contaC100} <br/>";
-echo "Total de Registros C170 = {$contaC170} <br/>";
