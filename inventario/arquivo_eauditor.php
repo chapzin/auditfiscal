@@ -6,7 +6,7 @@ $script_start = (float) $sec + (float) $usec;
 
 /* SEU CÓDIGO PHP */
 
-include '../arquivos/conexao.php';
+include '../processamento/conexao.php';
 $dir_speds = 'inventario/';
 $speds = dir($dir_speds);
 

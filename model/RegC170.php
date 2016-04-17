@@ -1,46 +1,51 @@
 <?php
 
-class RegC170 {
+class RegC170
+{
 
-    public $reg;
-    public $numItem;
-    public $CodItem;
-    public $descrCompl;
-    public $qtd;
-    public $unid;
-    public $vlItem;
-    public $vlDesc;
-    public $indMov;
-    public $cstIcms;
-    public $cfop;
-    public $codNat;
-    public $vlBcIcms;
-    public $aliqIcms;
-    public $vlIcms;
-    public $vlBcIcmsSt;
-    public $aliqSt;
-    public $vlIcmsSt;
-    public $indApur;
-    public $cstIpi;
-    public $codEnq;
-    public $vlBcIpi;
-    public $aliqIpi;
-    public $vlIpi;
-    public $cstPis;
-    public $vlBcPis;
-    public $aliqPisPerc;
-    public $quantBcPis;
-    public $aliqPisReais;
-    public $vlPis;
-    public $cstCofins;
-    public $vlBcCofins;
-    public $aliqCofinsPerc;
-    public $quantBcCofins;
-    public $aliqCofinsReais;
-    public $vlCofins;
-    public $codCta;
+    private $reg;
+    private $numItem;
+    private $CodItem;
+    private $descrCompl;
+    private $qtd;
+    private $unid;
+    private $vlItem;
+    private $vlDesc;
+    private $indMov;
+    private $cstIcms;
+    private $cfop;
+    private $codNat;
+    private $vlBcIcms;
+    private $aliqIcms;
+    private $vlIcms;
+    private $vlBcIcmsSt;
+    private $aliqSt;
+    private $vlIcmsSt;
+    private $indApur;
+    private $cstIpi;
+    private $codEnq;
+    private $vlBcIpi;
+    private $aliqIpi;
+    private $vlIpi;
+    private $cstPis;
+    private $vlBcPis;
+    private $aliqPisPerc;
+    private $quantBcPis;
+    private $aliqPisReais;
+    private $vlPis;
+    private $cstCofins;
+    private $vlBcCofins;
+    private $aliqCofinsPerc;
+    private $quantBcCofins;
+    private $aliqCofinsReais;
+    private $vlCofins;
+    private $codCta;
+    private $dtIni;
+    private $linha;
 
-    function __construct($linha) {
+
+    public function populaSped($linha)
+    {
         $l = explode('|', $linha);
         if ($l[1] == 'C170') {
             $this->reg = $l[1];
@@ -83,299 +88,401 @@ class RegC170 {
         }
     }
 
-    function getReg() {
+    public function populaXml($xml){
+        $x = simplexml_load_string($xml);
+        if ($x->NFe) {
+            //TODO importar itens
+        }
+    }
+
+    public function getDtIni()
+    {
+        return $this->dtIni;
+    }
+
+    public function setDtIni($dtIni)
+    {
+        $this->dtIni = $dtIni;
+    }
+
+    public function getLinha()
+    {
+        return $this->linha;
+    }
+
+    public function setLinha($linha)
+    {
+        $this->linha = $linha;
+    }
+
+
+    function getReg()
+    {
         return $this->reg;
     }
 
-    function getNumItem() {
+    function getNumItem()
+    {
         return $this->numItem;
     }
 
-    function getCodItem() {
+    function getCodItem()
+    {
         return $this->CodItem;
     }
 
-    function getDescrCompl() {
+    function getDescrCompl()
+    {
         return $this->descrCompl;
     }
 
-    function getQtd() {
+    function getQtd()
+    {
         return $this->qtd;
     }
 
-    function getUnid() {
+    function getUnid()
+    {
         return $this->unid;
     }
 
-    function getVlItem() {
+    function getVlItem()
+    {
         return $this->vlItem;
     }
 
-    function getVlDesc() {
+    function getVlDesc()
+    {
         return $this->vlDesc;
     }
 
-    function getIndMov() {
+    function getIndMov()
+    {
         return $this->indMov;
     }
 
-    function getCstIcms() {
+    function getCstIcms()
+    {
         return $this->cstIcms;
     }
 
-    function getCfop() {
+    function getCfop()
+    {
         return $this->cfop;
     }
 
-    function getCodNat() {
+    function getCodNat()
+    {
         return $this->codNat;
     }
 
-    function getVlBcIcms() {
+    function getVlBcIcms()
+    {
         return $this->vlBcIcms;
     }
 
-    function getAliqIcms() {
+    function getAliqIcms()
+    {
         return $this->aliqIcms;
     }
 
-    function getVlIcms() {
+    function getVlIcms()
+    {
         return $this->vlIcms;
     }
 
-    function getVlBcIcmsSt() {
+    function getVlBcIcmsSt()
+    {
         return $this->vlBcIcmsSt;
     }
 
-    function getAliqSt() {
+    function getAliqSt()
+    {
         return $this->aliqSt;
     }
 
-    function getVlIcmsSt() {
+    function getVlIcmsSt()
+    {
         return $this->vlIcmsSt;
     }
 
-    function getIndApur() {
+    function getIndApur()
+    {
         return $this->indApur;
     }
 
-    function getCstIpi() {
+    function getCstIpi()
+    {
         return $this->cstIpi;
     }
 
-    function getCodEnq() {
+    function getCodEnq()
+    {
         return $this->codEnq;
     }
 
-    function getVlBcIpi() {
+    function getVlBcIpi()
+    {
         return $this->vlBcIpi;
     }
 
-    function getAliqIpi() {
+    function getAliqIpi()
+    {
         return $this->aliqIpi;
     }
 
-    function getVlIpi() {
+    function getVlIpi()
+    {
         return $this->vlIpi;
     }
 
-    function getCstPis() {
+    function getCstPis()
+    {
         return $this->cstPis;
     }
 
-    function getVlBcPis() {
+    function getVlBcPis()
+    {
         return $this->vlBcPis;
     }
 
-    function getAliqPisPerc() {
+    function getAliqPisPerc()
+    {
         return $this->aliqPisPerc;
     }
 
-    function getQuantBcPis() {
+    function getQuantBcPis()
+    {
         return $this->quantBcPis;
     }
 
-    function getAliqPisReais() {
+    function getAliqPisReais()
+    {
         return $this->aliqPisReais;
     }
 
-    function getVlPis() {
+    function getVlPis()
+    {
         return $this->vlPis;
     }
 
-    function getCstCofins() {
+    function getCstCofins()
+    {
         return $this->cstCofins;
     }
 
-    function getVlBcCofins() {
+    function getVlBcCofins()
+    {
         return $this->vlBcCofins;
     }
 
-    function getAliqCofinsPerc() {
+    function getAliqCofinsPerc()
+    {
         return $this->aliqCofinsPerc;
     }
 
-    function getQuantBcCofins() {
+    function getQuantBcCofins()
+    {
         return $this->quantBcCofins;
     }
 
-    function getAliqCofinsReais() {
+    function getAliqCofinsReais()
+    {
         return $this->aliqCofinsReais;
     }
 
-    function getVlCofins() {
+    function getVlCofins()
+    {
         return $this->vlCofins;
     }
 
-    function getCodCta() {
+    function getCodCta()
+    {
         return $this->codCta;
     }
 
-    function setReg($reg) {
+    function setReg($reg)
+    {
         $this->reg = $reg;
     }
 
-    function setNumItem($numItem) {
+    function setNumItem($numItem)
+    {
         $this->numItem = $numItem;
     }
 
-    function setCodItem($CodItem) {
+    function setCodItem($CodItem)
+    {
         $this->CodItem = $CodItem;
     }
 
-    function setDescrCompl($descrCompl) {
+    function setDescrCompl($descrCompl)
+    {
         $this->descrCompl = $descrCompl;
     }
 
-    function setQtd($qtd) {
+    function setQtd($qtd)
+    {
         $this->qtd = $qtd;
     }
 
-    function setUnid($unid) {
+    function setUnid($unid)
+    {
         $this->unid = $unid;
     }
 
-    function setVlItem($vlItem) {
+    function setVlItem($vlItem)
+    {
         $this->vlItem = $vlItem;
     }
 
-    function setVlDesc($vlDesc) {
+    function setVlDesc($vlDesc)
+    {
         $this->vlDesc = $vlDesc;
     }
 
-    function setIndMov($indMov) {
+    function setIndMov($indMov)
+    {
         $this->indMov = $indMov;
     }
 
-    function setCstIcms($cstIcms) {
+    function setCstIcms($cstIcms)
+    {
         $this->cstIcms = $cstIcms;
     }
 
-    function setCfop($cfop) {
+    function setCfop($cfop)
+    {
         $this->cfop = $cfop;
     }
 
-    function setCodNat($codNat) {
+    function setCodNat($codNat)
+    {
         $this->codNat = $codNat;
     }
 
-    function setVlBcIcms($vlBcIcms) {
+    function setVlBcIcms($vlBcIcms)
+    {
         $this->vlBcIcms = $vlBcIcms;
     }
 
-    function setAliqIcms($aliqIcms) {
+    function setAliqIcms($aliqIcms)
+    {
         $this->aliqIcms = $aliqIcms;
     }
 
-    function setVlIcms($vlIcms) {
+    function setVlIcms($vlIcms)
+    {
         $this->vlIcms = $vlIcms;
     }
 
-    function setVlBcIcmsSt($vlBcIcmsSt) {
+    function setVlBcIcmsSt($vlBcIcmsSt)
+    {
         $this->vlBcIcmsSt = $vlBcIcmsSt;
     }
 
-    function setAliqSt($aliqSt) {
+    function setAliqSt($aliqSt)
+    {
         $this->aliqSt = $aliqSt;
     }
 
-    function setVlIcmsSt($vlIcmsSt) {
+    function setVlIcmsSt($vlIcmsSt)
+    {
         $this->vlIcmsSt = $vlIcmsSt;
     }
 
-    function setIndApur($indApur) {
+    function setIndApur($indApur)
+    {
         $this->indApur = $indApur;
     }
 
-    function setCstIpi($cstIpi) {
+    function setCstIpi($cstIpi)
+    {
         $this->cstIpi = $cstIpi;
     }
 
-    function setCodEnq($codEnq) {
+    function setCodEnq($codEnq)
+    {
         $this->codEnq = $codEnq;
     }
 
-    function setVlBcIpi($vlBcIpi) {
+    function setVlBcIpi($vlBcIpi)
+    {
         $this->vlBcIpi = $vlBcIpi;
     }
 
-    function setAliqIpi($aliqIpi) {
+    function setAliqIpi($aliqIpi)
+    {
         $this->aliqIpi = $aliqIpi;
     }
 
-    function setVlIpi($vlIpi) {
+    function setVlIpi($vlIpi)
+    {
         $this->vlIpi = $vlIpi;
     }
 
-    function setCstPis($cstPis) {
+    function setCstPis($cstPis)
+    {
         $this->cstPis = $cstPis;
     }
 
-    function setVlBcPis($vlBcPis) {
+    function setVlBcPis($vlBcPis)
+    {
         $this->vlBcPis = $vlBcPis;
     }
 
-    function setAliqPisPerc($aliqPisPerc) {
+    function setAliqPisPerc($aliqPisPerc)
+    {
         $this->aliqPisPerc = $aliqPisPerc;
     }
 
-    function setQuantBcPis($quantBcPis) {
+    function setQuantBcPis($quantBcPis)
+    {
         $this->quantBcPis = $quantBcPis;
     }
 
-    function setAliqPisReais($aliqPisReais) {
+    function setAliqPisReais($aliqPisReais)
+    {
         $this->aliqPisReais = $aliqPisReais;
     }
 
-    function setVlPis($vlPis) {
+    function setVlPis($vlPis)
+    {
         $this->vlPis = $vlPis;
     }
 
-    function setCstCofins($cstCofins) {
+    function setCstCofins($cstCofins)
+    {
         $this->cstCofins = $cstCofins;
     }
 
-    function setVlBcCofins($vlBcCofins) {
+    function setVlBcCofins($vlBcCofins)
+    {
         $this->vlBcCofins = $vlBcCofins;
     }
 
-    function setAliqCofinsPerc($aliqCofinsPerc) {
+    function setAliqCofinsPerc($aliqCofinsPerc)
+    {
         $this->aliqCofinsPerc = $aliqCofinsPerc;
     }
 
-    function setQuantBcCofins($quantBcCofins) {
+    function setQuantBcCofins($quantBcCofins)
+    {
         $this->quantBcCofins = $quantBcCofins;
     }
 
-    function setAliqCofinsReais($aliqCofinsReais) {
+    function setAliqCofinsReais($aliqCofinsReais)
+    {
         $this->aliqCofinsReais = $aliqCofinsReais;
     }
 
-    function setVlCofins($vlCofins) {
+    function setVlCofins($vlCofins)
+    {
         $this->vlCofins = $vlCofins;
     }
 
-    function setCodCta($codCta) {
+    function setCodCta($codCta)
+    {
         $this->codCta = $codCta;
     }
 

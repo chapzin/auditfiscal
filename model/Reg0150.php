@@ -21,17 +21,17 @@ class Reg0150 {
         if ($l[1] == '0150') {
             $this->reg = $l[1];
             $this->codPart = $l[2];
-            $this->nome = $l[3];
+            $this->nome = str_replace("'","",$l[3]);
             $this->codPais = $l[4];
             $this->cnpj = $l[5];
             $this->cpf = $l[6];
             $this->ie = $l[7];
             $this->codMun = $l[8];
             $this->suframa = $l[9];
-            $this->end = $l[10];
+            $this->end = str_replace("'","",$l[10]);
             $this->num = $l[11];
             $this->compl = $l[12];
-            $this->bairro = $l[13];
+            $this->bairro = str_replace("'","",$l[13]);
         }
     }
 

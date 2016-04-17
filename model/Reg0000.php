@@ -25,8 +25,8 @@ class Reg0000 {
         $this->setReg($l[1]);
         $this->setCodVer($l[2]);
         $this->codFin = $l[3];
-        $this->dtIni = $l[4];
-        $this->dtFin = $l[5];
+        $this->dtIni = convert_data($l[4]);
+        $this->dtFin = convert_data($l[5]);
         $this->nome = $l[6];
         $this->cnpj = $l[7];
         $this->cpf = $l[8];

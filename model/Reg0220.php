@@ -6,10 +6,14 @@ class Reg0220 {
     private $unidConv;
     private $fatConv;
     
-    function __construct($reg, $unidConv, $fatConv) {
-        $this->reg = $reg;
-        $this->unidConv = $unidConv;
-        $this->fatConv = $fatConv;
+    function __construct($linha) {
+        $l = explode('|', $linha);
+        if ($l[1] == '0220') {
+            $this->reg = $l[1];
+            $this->unidConv = $l[2];
+            $this->fatConv = $l[3];
+        }
+
     }
 
     function getReg() {

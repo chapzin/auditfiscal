@@ -116,7 +116,7 @@ class Reg0200 {
         if ($l[1] == '0200') {
             $this->reg = $l[1];
             $this->codItem = $l[2];
-            $this->descrItem = $l[3];
+            $this->descrItem = str_replace("'","",$l[3]);
             $this->codBarra = $l[4];
             $this->codAntItem = $l[5];
             $this->unidInv = $l[6];

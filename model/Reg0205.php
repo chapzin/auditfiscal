@@ -47,12 +47,16 @@ class Reg0205 {
         $this->codAntItem = $codAntItem;
     }
 
-    function __construct($reg, $descrAntItem, $dtIni, $dtFim, $codAntItem) {
-        $this->reg = $reg;
-        $this->descrAntItem = $descrAntItem;
-        $this->dtIni = $dtIni;
-        $this->dtFim = $dtFim;
-        $this->codAntItem = $codAntItem;
+    function __construct($linha) {
+        $l = explode('|',$linha);
+        if($l[1]=='0205'){
+            $this->reg = $l[1];
+            $this->descrAntItem = $l[2];
+            $this->dtIni = convert_data($l[3]);
+            $this->dtFim = convert_data($l[4]);
+            $this->codAntItem = $l[5];
+        }
+
     }
 
 }
