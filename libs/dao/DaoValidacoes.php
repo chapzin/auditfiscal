@@ -6,7 +6,7 @@
  * Date: 13/04/2016
  * Time: 12:59
  */
-require_once '../cofing/PdoConexao.php';
+require_once '../db/PdoConexao.php';
 
 class DaoValidacoes
 {

@@ -6,30 +6,9 @@
  * Date: 11/04/2016
  * Time: 13:16
  */
-require_once 'iDaoModeCrud.php';
-require_once '../cofing/PdoConexao.php';
-class DaoReg0205 implements iDaoModeCrud
+require_once 'DaoGeneric.php';
+class DaoReg0205 extends DaoGeneric
 {
-
-    private $instanciaConexaoPdoAtiva;
-    private $tabela;
-
-    /**
-     * DaoReg0205 constructor.
-     * @param $instanciaConexaoPdoAtiva
-     * @param $tabela
-     */
-    public function __construct()
-    {
-        $this->instanciaConexaoPdoAtiva = PdoConexao::getInstancia();
-        $this->tabela = "reg_0205";
-    }
-
-
-    public function create($objeto)
-    {
-        // TODO: Implement create() method.
-    }
 
     public function createDtIni($objeto, $dtIni)
     {
@@ -50,31 +29,4 @@ class DaoReg0205 implements iDaoModeCrud
         }
     }
 
-    public function ler($param)
-    {
-        // TODO: Implement ler() method.
-    }
-
-    public function update($objeto)
-    {
-        // TODO: Implement update() method.
-    }
-
-    public function delete($param)
-    {
-        // TODO: Implement delete() method.
-    }
-
-    public function deleteAll($tabela){
-        $sql = "TRUNCATE {$tabela}";
-        try{
-            if($this->instanciaConexaoPdoAtiva->query($sql)){
-                return true;
-            } else {
-                return false;
-            }
-        }catch (PDOException $e){
-            echo $e->getMessage();
-        }
-    }
 }

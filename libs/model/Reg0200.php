@@ -15,101 +15,199 @@ class Reg0200 {
     public $codLst;
     public $aliqIcms;
 
-    function getReg() {
+    /**
+     * @return mixed
+     */
+    public function getReg()
+    {
         return $this->reg;
     }
 
-    function getCodItem() {
-        return $this->codItem;
-    }
-
-    function getDescrItem() {
-        return $this->descrItem;
-    }
-
-    function getCodBarra() {
-        return $this->codBarra;
-    }
-
-    function getCodAntItem() {
-        return $this->codAntItem;
-    }
-
-    function getUnidInv() {
-        return $this->unidInv;
-    }
-
-    function getTipoItem() {
-        return $this->tipoItem;
-    }
-
-    function getCodNcm() {
-        return $this->codNcm;
-    }
-
-    function getExIpi() {
-        return $this->exIpi;
-    }
-
-    function getCodGen() {
-        return $this->codGen;
-    }
-
-    function getCodLst() {
-        return $this->codLst;
-    }
-
-    function getAliqIcms() {
-        return $this->aliqIcms;
-    }
-
-    function setReg($reg) {
+    /**
+     * @param mixed $reg
+     */
+    public function setReg($reg)
+    {
         $this->reg = $reg;
     }
 
-    function setCodItem($codItem) {
+    /**
+     * @return mixed
+     */
+    public function getCodItem()
+    {
+        return $this->codItem;
+    }
+
+    /**
+     * @param mixed $codItem
+     */
+    public function setCodItem($codItem)
+    {
         $this->codItem = $codItem;
     }
 
-    function setDescrItem($descrItem) {
+    /**
+     * @return mixed
+     */
+    public function getDescrItem()
+    {
+        return $this->descrItem;
+    }
+
+    /**
+     * @param mixed $descrItem
+     */
+    public function setDescrItem($descrItem)
+    {
         $this->descrItem = $descrItem;
     }
 
-    function setCodBarra($codBarra) {
+    /**
+     * @return mixed
+     */
+    public function getCodBarra()
+    {
+        return $this->codBarra;
+    }
+
+    /**
+     * @param mixed $codBarra
+     */
+    public function setCodBarra($codBarra)
+    {
         $this->codBarra = $codBarra;
     }
 
-    function setCodAntItem($codAntItem) {
+    /**
+     * @return mixed
+     */
+    public function getCodAntItem()
+    {
+        return $this->codAntItem;
+    }
+
+    /**
+     * @param mixed $codAntItem
+     */
+    public function setCodAntItem($codAntItem)
+    {
         $this->codAntItem = $codAntItem;
     }
 
-    function setUnidInv($unidInv) {
+    /**
+     * @return mixed
+     */
+    public function getUnidInv()
+    {
+        return $this->unidInv;
+    }
+
+    /**
+     * @param mixed $unidInv
+     */
+    public function setUnidInv($unidInv)
+    {
         $this->unidInv = $unidInv;
     }
 
-    function setTipoItem($tipoItem) {
+    /**
+     * @return mixed
+     */
+    public function getTipoItem()
+    {
+        return $this->tipoItem;
+    }
+
+    /**
+     * @param mixed $tipoItem
+     */
+    public function setTipoItem($tipoItem)
+    {
         $this->tipoItem = $tipoItem;
     }
 
-    function setCodNcm($codNcm) {
+    /**
+     * @return mixed
+     */
+    public function getCodNcm()
+    {
+        return $this->codNcm;
+    }
+
+    /**
+     * @param mixed $codNcm
+     */
+    public function setCodNcm($codNcm)
+    {
         $this->codNcm = $codNcm;
     }
 
-    function setExIpi($exIpi) {
+    /**
+     * @return mixed
+     */
+    public function getExIpi()
+    {
+        return $this->exIpi;
+    }
+
+    /**
+     * @param mixed $exIpi
+     */
+    public function setExIpi($exIpi)
+    {
         $this->exIpi = $exIpi;
     }
 
-    function setCodGen($codGen) {
+    /**
+     * @return mixed
+     */
+    public function getCodGen()
+    {
+        return $this->codGen;
+    }
+
+    /**
+     * @param mixed $codGen
+     */
+    public function setCodGen($codGen)
+    {
         $this->codGen = $codGen;
     }
 
-    function setCodLst($codLst) {
+    /**
+     * @return mixed
+     */
+    public function getCodLst()
+    {
+        return $this->codLst;
+    }
+
+    /**
+     * @param mixed $codLst
+     */
+    public function setCodLst($codLst)
+    {
         $this->codLst = $codLst;
     }
 
-    function setAliqIcms($aliqIcms) {
+    /**
+     * @return mixed
+     */
+    public function getAliqIcms()
+    {
+        return $this->aliqIcms;
+    }
+
+    /**
+     * @param mixed $aliqIcms
+     */
+    public function setAliqIcms($aliqIcms)
+    {
         $this->aliqIcms = $aliqIcms;
     }
+
+
 
     public function populaSped($linha){
         $l = explode('|', $linha);

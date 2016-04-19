@@ -1,18 +1,7 @@
 <?php
 
 require_once 'conexao.php';
-require_once '../dao/DaoReg0000.php';
-require_once '../dao/DaoReg0150.php';
-require_once '../dao/DaoReg0190.php';
-require_once '../dao/DaoReg0200.php';
-require_once '../dao/DaoReg0205.php';
-require_once '../dao/DaoReg0220.php';
-require_once '../dao/DaoRegC100.php';
-require_once '../dao/DaoRegC170.php';
-require_once '../dao/DaoRegH005.php';
-require_once '../dao/DaoRegH010.php';
-require_once '../dao/DaoRegC425.php';
-
+require_once '__analisar_autoload.php';
 
 $r0000 = new DaoReg0000();
 $r0000->deleteAll("reg_0000");
@@ -37,5 +26,6 @@ $rH005 = new DaoRegH005();
 $rH005->deleteAll("reg_H005");
 $rH010 = new DaoRegH010();
 $rH010->deleteAll("reg_H010");
-
+$est = new DaoEstoqueQtd();
+$est->deleteAll("estoque_qtd");
 

@@ -7,28 +7,8 @@
  * Time: 20:26
  */
 require_once 'conexao.php';
-require_once '../model/Reg0000.php';
-require_once '../model/Reg0150.php';
-require_once '../model/Reg0200.php';
-require_once '../model/Reg0190.php';
-require_once '../model/Reg0220.php';
-require_once '../model/RegC100.php';
-require_once '../model/RegC170.php';
-require_once '../model/RegH005.php';
-require_once '../model/RegH010.php';
-require_once '../model/RegC425.php';
-require_once '../dao/DaoReg0000.php';
-require_once '../dao/DaoReg0150.php';
-require_once '../dao/DaoReg0200.php';
-require_once '../dao/DaoReg0190.php';
-require_once '../dao/DaoReg0205.php';
-require_once '../dao/DaoReg0220.php';
-require_once '../dao/DaoRegC100.php';
-require_once '../dao/DaoRegC170.php';
-require_once '../dao/DaoRegC425.php';
-require_once '../dao/DaoRegH005.php';
-require_once '../dao/DaoRegH010.php';
 
+require_once '__analisar_autoload.php';
 $dir_speds = 'speds/';
 
 
@@ -81,7 +61,8 @@ while ($arquivo = $speds->read()) {
                     }
                 }
                 if($l[1]=='0200'){
-                    $reg0200 = new Reg0200($linha);
+                    $reg0200 = new Reg0200();
+                    $reg0200->populaSped($linha);
                     $PersistenciaReg0200 = new DaoReg0200();
                     if($PersistenciaReg0200->createDtIni($reg0200,$reg0000->getDtIni())){
                         $conta0200 = $conta0200+1;

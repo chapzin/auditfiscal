@@ -28,7 +28,7 @@ class RegH010 {
             $this->txtCompl = $l[9];
             $this->codCta = $l[10];
             $this->vlItemIr = vlp($l[11]);
-            $this->dataInv = convert_data($dataInv);
+            $this->dataInv = $dataInv;
         }
     }
 

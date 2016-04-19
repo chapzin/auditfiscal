@@ -6609,16 +6609,19 @@
       <column id="2194" parent="199" name="vl_unit">
         <data-type>decimal(23,2)</data-type>
       </column>
-      <index id="2195" parent="199" name="estoque_qtd_codigo_uindex">
+      <column id="2195" parent="199" name="entrada_terceiro">
+        <data-type>decimal(23,5)</data-type>
+      </column>
+      <index id="2196" parent="199" name="estoque_qtd_codigo_uindex">
         <columns>codigo</columns>
         <desc-columns></desc-columns>
         <unique>1</unique>
       </index>
-      <key id="2196" parent="199" name="estoque_qtd_codigo_uindex">
+      <key id="2197" parent="199" name="estoque_qtd_codigo_uindex">
         <columns>codigo</columns>
         <underlying-index>estoque_qtd_codigo_uindex</underlying-index>
       </key>
-      <key id="2197" parent="199" name="PRIMARY">
+      <key id="2198" parent="199" name="PRIMARY">
         <columns>id</columns>
         <primary>1</primary>
       </key>

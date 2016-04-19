@@ -6,27 +6,9 @@
  * Date: 11/04/2016
  * Time: 13:48
  */
-require_once 'iDaoModeCrud.php';
-require_once '../cofing/PdoConexao.php';
-require_once '../cofing/PdoConexao.php';
-
-class DaoRegC100 implements iDaoModeCrud
+require_once 'DaoGeneric.php';
+class DaoRegC100 extends DaoGeneric
 {
-
-    private $instanciaConexaoPdoAtiva;
-    private $tabela;
-
-    /**
-     * DaoRegC100 constructor.
-     * @param $instanciaConexaoPdoAtiva
-     * @param $tabela
-     */
-    public function __construct()
-    {
-        $this->instanciaConexaoPdoAtiva = PdoConexao::getInstancia();
-        $this->tabela = "reg_c100";
-    }
-
 
     public function createXml($objeto)
     {
@@ -67,31 +49,6 @@ class DaoRegC100 implements iDaoModeCrud
             echo $e->getMessage();
             echo $sqlInsertC100 . "<br/>";
         }
-    }
-
-    public function ler($param)
-    {
-        // TODO: Implement ler() method.
-    }
-
-    public function update($objeto)
-    {
-        // TODO: Implement update() method.
-    }
-
-    public function delete($param)
-    {
-        // TODO: Implement delete() method.
-    }
-
-    public function create($objeto)
-    {
-        // TODO: Implement create() method.
-    }
-
-    public function createDtIni($objeto, $dtIni)
-    {
-        // TODO: Implement createDtIni() method.
     }
 
     public function deleteAllSped(){
@@ -147,19 +104,6 @@ class DaoRegC100 implements iDaoModeCrud
             }
         }catch (PDOException $e)
         {
-            echo $e->getMessage();
-        }
-    }
-
-    public function deleteAll($tabela){
-        $sql = "TRUNCATE {$tabela}";
-        try{
-            if($this->instanciaConexaoPdoAtiva->query($sql)){
-                return true;
-            } else {
-                return false;
-            }
-        }catch (PDOException $e){
             echo $e->getMessage();
         }
     }

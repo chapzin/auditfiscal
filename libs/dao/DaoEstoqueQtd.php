@@ -104,6 +104,25 @@ class DaoEstoqueQtd extends DaoGeneric
         }
     }
 
+    public function updateEntradaTerceiro($codigo,$qtd)
+    {
+        $sql = "UPDATE estoque_qtd set entrada_terceiro='{$qtd}' where codigo='{$codigo}'";
+        try {
+            if ($operacao = $this->instanciaConexaoPdoAtiva->query($sql)) {
+                if ($operacao->rowCount()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage() . "<br/>";
+            echo $sql . "<br/>";
+        }
+    }
+
     public function updateSaidaNF($codigo,$qtd)
     {
         $sql = "UPDATE estoque_qtd set saidas_nf='{$qtd}' where codigo='{$codigo}'";

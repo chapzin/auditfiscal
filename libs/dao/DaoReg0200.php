@@ -6,6 +6,7 @@
  * Date: 11/04/2016
  * Time: 11:09
  */
+
 require_once 'DaoGeneric.php';
 class DaoReg0200 extends DaoGeneric
 {
