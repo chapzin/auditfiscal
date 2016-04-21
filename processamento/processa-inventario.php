@@ -21,6 +21,11 @@ $contaSaidaPropriaNF = 0;
 $contaSaidaPropriaCF = 0;
 $contaInvFin = 0;
 
+// Removendo tudo
+$limpa = new DaoEstoqueQtd();
+$limpa->deleteAll("estoque_qtd");
+$limpa->deleteArgumento("reg_c170","where dtIni > '2011-12-31'");
+$limpa->deleteArgumento("reg_c425","where dtIni > '2011-12-31'");
 
 // Adiciona todos produtos distintos do 0200
 $r0200 = new DaoReg0200();
@@ -97,6 +102,16 @@ foreach ($rH010->selectAll("reg_h010", "where dtInv='2011-12-31'") as $produto) 
         $contaInvFin += 1;
     } else {
         echo "Erro ao adicionar inventario inicial <br/>";
+    }
+}
+
+// Verifica diferenças de estoque
+$estoque = new DaoEstoqueQtd();
+foreach ($estoque->selectAll("estoque_qtd") as $est){
+    // Calculando
+    $diferenca = ($est->inv_ini+$est->entradas+$est->entrada_terceiro) - ($est->saidas_nf+$est->saidas_cf);
+    if($diferenca <> $est->inv_final){
+        echo "O codigo {$est->codigo} inv_final={$est->inv_final} e correto={$diferenca}<br/>";
     }
 }
 

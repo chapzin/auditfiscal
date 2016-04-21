@@ -17,8 +17,7 @@
  * Date: 13/04/2016
  * Time: 13:09
  */
-require_once '../dao/DaoValidacoes.php';
-require_once '../dao/DaoRegC100.php';
+require_once '__analisar_autoload.php';
 $cnpj = '41334079000255';
 $valid = new DaoValidacoes();
 $daoC100 = new DaoRegC100();

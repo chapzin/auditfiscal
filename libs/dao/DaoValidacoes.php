@@ -6,21 +6,10 @@
  * Date: 13/04/2016
  * Time: 12:59
  */
-require_once '../db/PdoConexao.php';
-
-class DaoValidacoes
+require_once 'DaoGeneric.php';
+class DaoValidacoes extends DaoGeneric
 {
 
-    private $instanciaConexaoPdoAtiva;
-
-    /**
-     * DaoValidacoes constructor.
-     * @param $instanciaConexaoPdoAtiva
-     */
-    public function __construct()
-    {
-        $this->instanciaConexaoPdoAtiva = PdoConexao::getInstancia();
-    }
 
     // Verificar notas sem ser regular
     public function canceladaSemChave()

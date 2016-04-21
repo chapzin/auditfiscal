@@ -5,8 +5,7 @@
  * Date: 12/04/2016
  * Time: 09:37
  */
-require_once '../model/RegC100.php';
-require_once '../dao/DaoRegC100.php';
+require_once '__analisar_autoload.php';
 require_once 'conexao.php';
 $caminho = 'xmls/';
 $xmls = dir($caminho);
