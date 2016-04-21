@@ -10,13 +10,95 @@ class Validador
 {
 
     public function validaMesEmissaoNfe($chave,$dtEmit){
-        $emissaochave = substr($chave,2,4);
+        $emissaoChave = substr($chave,2,4);
         $dtSped = explode('-',$dtEmit);
         $dtSped = substr($dtSped[0],2,2).$dtSped[1];
-        if($dtSped==$emissaochave){
+        if($dtSped==$emissaoChave){
             return true;
         } else {
             return false;
+        }
+    }
+
+    public function validaCnpjEmitente($chave,$cnpj){
+        $cnpjChave = substr($chave,6,14);
+        if($cnpjChave==$cnpj){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function validaSerie($chave,$serie){
+        $serieChave = substr($chave,22,3);
+        if($serieChave==$serie){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function validaNumeroNfe($chave,$nfe){
+        $numNfeChave = substr($chave,25,9);
+        if($numNfeChave==$nfe){
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public function validaCstAIcms($cst){
+        switch($cst{0}){
+            case "1":
+                return false;
+                break;
+            case "8":
+                return false;
+                break;
+            case "9":
+                return false;
+                break;
+            default:
+                return true;
+                break;
+        }
+    }
+
+    public function validaCstBIcms($cst){
+        switch(substr($cst,1,2)){
+            case "00":
+                return true;
+                break;
+            case "10":
+                return true;
+                break;
+            case "20":
+                return true;
+                break;
+            case "30":
+                return true;
+                break;
+            case "40":
+                return true;
+                break;
+            case "41":
+                return true;
+                break;
+            case "50";
+                return true;
+                break;
+            case "60";
+                return true;
+                break;
+            case "70":
+                return true;
+                break;
+            case "90";
+                return true;
+                break;
+            default:
+                return false;
+                break;
         }
     }
 
