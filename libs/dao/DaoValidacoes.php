@@ -12,6 +12,9 @@ class DaoValidacoes extends DaoGeneric
 
 
     // Verificar notas sem ser regular
+
+
+
     public function canceladaSemChave()
     {
         try {
