@@ -32,6 +32,11 @@ class RegH010 {
         }
     }
 
+    public function layoutSped($objeto){
+        $layoutH010 = "|{$this->reg}|{$this->codItem}|{$this->unid}|{$this->qtd}|{$this->vlUnit}|{$this->vlItem}|{$this->indProp}|{$this->codPart}|{$this->txtCompl}|{$this->codCta}|{$this->vlItemIr}|";
+        return $layoutH010;
+    }
+
     /**
      * @return mixed
      */

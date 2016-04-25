@@ -1,6 +1,7 @@
 <?php
 
-class Reg0150 {
+class Reg0150
+{
 
     private $reg;
     private $codPart;
@@ -16,127 +17,181 @@ class Reg0150 {
     private $compl;
     private $bairro;
 
-    function __construct($linha) {
+    function populaSped($linha)
+    {
         $l = explode('|', $linha);
         if ($l[1] == '0150') {
             $this->reg = $l[1];
             $this->codPart = $l[2];
-            $this->nome = str_replace("'","",$l[3]);
+            $this->nome = str_replace("'", "", $l[3]);
             $this->codPais = $l[4];
             $this->cnpj = $l[5];
             $this->cpf = $l[6];
             $this->ie = $l[7];
             $this->codMun = $l[8];
             $this->suframa = $l[9];
-            $this->end = str_replace("'","",$l[10]);
+            $this->end = str_replace("'", "", $l[10]);
             $this->num = $l[11];
             $this->compl = $l[12];
-            $this->bairro = str_replace("'","",$l[13]);
+            $this->bairro = str_replace("'", "", $l[13]);
         }
     }
 
-    function getReg() {
-        return $this->reg;
+    function populaXml($xml)
+    {
+        $x = simplexml_load_string($xml);
+        if ($x->NFe) {
+            $this->reg = '0150';
+            //print_r($x);
+            $this->codPart = $x->NFe->infNFe->emit->CNPJ;
+            $this->nome = $x->NFe->infNFe->emit->xNome;
+            $this->codPais = $x->NFe->infNFe->emit->enderEmit->cPais;
+            $this->cnpj = $x->NFe->infNFe->emit->CNPJ;
+            $this->cpf = '';
+            $this->ie = $x->NFe->infNFe->emit->IE;
+            $this->codMun = $x->NFe->infNFe->emit->enderEmit->cMun;
+            $this->suframa = '';
+            $this->end = $x->NFe->infNFe->emit->enderEmit->xLgr;
+            $this->num = $x->NFe->infNFe->emit->enderEmit->nro;
+            $this->compl = '';
+            $this->bairro = $x->NFe->infNFe->emit->enderEmit->xBairro;
+
+            return true;
+
+        } else {
+            return false;
+        }
     }
 
-    function getCodPart() {
-        return $this->codPart;
-    }
 
-    function getNome() {
-        return $this->nome;
-    }
+function getReg()
+{
+    return $this->reg;
+}
 
-    function getCodPais() {
-        return $this->codPais;
-    }
+function getCodPart()
+{
+    return $this->codPart;
+}
 
-    function getCnpj() {
-        return $this->cnpj;
-    }
+function getNome()
+{
+    return $this->nome;
+}
 
-    function getCpf() {
-        return $this->cpf;
-    }
+function getCodPais()
+{
+    return $this->codPais;
+}
 
-    function getIe() {
-        return $this->ie;
-    }
+function getCnpj()
+{
+    return $this->cnpj;
+}
 
-    function getCodMun() {
-        return $this->codMun;
-    }
+function getCpf()
+{
+    return $this->cpf;
+}
 
-    function getSuframa() {
-        return $this->suframa;
-    }
+function getIe()
+{
+    return $this->ie;
+}
 
-    function getEnd() {
-        return $this->end;
-    }
+function getCodMun()
+{
+    return $this->codMun;
+}
 
-    function getNum() {
-        return $this->num;
-    }
+function getSuframa()
+{
+    return $this->suframa;
+}
 
-    function getCompl() {
-        return $this->compl;
-    }
+function getEnd()
+{
+    return $this->end;
+}
 
-    function getBairro() {
-        return $this->bairro;
-    }
+function getNum()
+{
+    return $this->num;
+}
 
-    function setReg($reg) {
-        $this->reg = $reg;
-    }
+function getCompl()
+{
+    return $this->compl;
+}
 
-    function setCodPart($codPart) {
-        $this->codPart = $codPart;
-    }
+function getBairro()
+{
+    return $this->bairro;
+}
 
-    function setNome($nome) {
-        $this->nome = $nome;
-    }
+function setReg($reg)
+{
+    $this->reg = $reg;
+}
 
-    function setCodPais($codPais) {
-        $this->codPais = $codPais;
-    }
+function setCodPart($codPart)
+{
+    $this->codPart = $codPart;
+}
 
-    function setCnpj($cnpj) {
-        $this->cnpj = $cnpj;
-    }
+function setNome($nome)
+{
+    $this->nome = $nome;
+}
 
-    function setCpf($cpf) {
-        $this->cpf = $cpf;
-    }
+function setCodPais($codPais)
+{
+    $this->codPais = $codPais;
+}
 
-    function setIe($ie) {
-        $this->ie = $ie;
-    }
+function setCnpj($cnpj)
+{
+    $this->cnpj = $cnpj;
+}
 
-    function setCodMun($codMun) {
-        $this->codMun = $codMun;
-    }
+function setCpf($cpf)
+{
+    $this->cpf = $cpf;
+}
 
-    function setSuframa($suframa) {
-        $this->suframa = $suframa;
-    }
+function setIe($ie)
+{
+    $this->ie = $ie;
+}
 
-    function setEnd($end) {
-        $this->end = $end;
-    }
+function setCodMun($codMun)
+{
+    $this->codMun = $codMun;
+}
 
-    function setNum($num) {
-        $this->num = $num;
-    }
+function setSuframa($suframa)
+{
+    $this->suframa = $suframa;
+}
 
-    function setCompl($compl) {
-        $this->compl = $compl;
-    }
+function setEnd($end)
+{
+    $this->end = $end;
+}
 
-    function setBairro($bairro) {
-        $this->bairro = $bairro;
-    }
+function setNum($num)
+{
+    $this->num = $num;
+}
+
+function setCompl($compl)
+{
+    $this->compl = $compl;
+}
+
+function setBairro($bairro)
+{
+    $this->bairro = $bairro;
+}
 
 }

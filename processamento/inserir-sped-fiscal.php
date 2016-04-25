@@ -43,9 +43,10 @@ while ($arquivo = $speds->read()) {
 
                 }
                 if($l[1]=='0150'){
-                    $reg0150 = new Reg0150($linha);
+                    $reg0150 = new Reg0150();
+                    $reg0150->populaSped($linha);
                     $PersistenciaReg0150 = new DaoReg0150();
-                    if($PersistenciaReg0150->createDtIni($reg0150,$reg0000->getDtIni())){
+                    if($PersistenciaReg0150->createSped($reg0150,$reg0000->getDtIni(),$contaLinhas)){
                         $conta0150 = $conta0150+1;
                     } else {
                         // TODO contagem nao adicionada

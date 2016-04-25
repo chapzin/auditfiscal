@@ -7,6 +7,7 @@ $r0000 = new DaoReg0000();
 $r0000->deleteAll("reg_0000");
 $r0150 = new DaoReg0150();
 $r0150->deleteAll("reg_0150");
+$r0150->deleteAll("reg_0150xml");
 $r0190 = new DaoReg0190();
 $r0190->deleteAll("reg_0190");
 $r0200 = new DaoReg0200();

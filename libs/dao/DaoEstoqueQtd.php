@@ -47,8 +47,8 @@ class DaoEstoqueQtd extends DaoGeneric
         }
     }
 
-    public function updateInvIni($codigo,$qtd){
-        $sql = "UPDATE estoque_qtd set inv_ini='{$qtd}' where codigo='{$codigo}'";
+    public function updateInvIni($codigo,$qtd,$vl_uni){
+        $sql = "UPDATE estoque_qtd set inv_ini='{$qtd}', vl_unit='{$vl_uni}' where codigo='{$codigo}'";
         try
         {
             if($operacao = $this->instanciaConexaoPdoAtiva->query($sql)){
@@ -66,9 +66,9 @@ class DaoEstoqueQtd extends DaoGeneric
         }
     }
 
-    public function updateInvFin($codigo,$qtd)
+    public function updateInvFin($codigo,$qtd,$vl_uni)
     {
-        $sql = "UPDATE estoque_qtd set inv_final='{$qtd}' where codigo='{$codigo}'";
+        $sql = "UPDATE estoque_qtd set inv_final='{$qtd}',vl_unit='{$vl_uni}' where codigo='{$codigo}'";
         try {
             if ($operacao = $this->instanciaConexaoPdoAtiva->query($sql)) {
                 if ($operacao->rowCount()) {
@@ -145,6 +145,44 @@ class DaoEstoqueQtd extends DaoGeneric
     public function updateSaidaCF($codigo,$qtd)
     {
         $sql = "UPDATE estoque_qtd set saidas_cf='{$qtd}' where codigo='{$codigo}'";
+        try {
+            if ($operacao = $this->instanciaConexaoPdoAtiva->query($sql)) {
+                if ($operacao->rowCount()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage() . "<br/>";
+            echo $sql . "<br/>";
+        }
+    }
+
+    public function updateDiferenca($codigo,$qtd)
+    {
+        $sql = "UPDATE estoque_qtd set diferenca='{$qtd}' where codigo='{$codigo}'";
+        try {
+            if ($operacao = $this->instanciaConexaoPdoAtiva->query($sql)) {
+                if ($operacao->rowCount()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage() . "<br/>";
+            echo $sql . "<br/>";
+        }
+    }
+
+    public function updateVlUnit($codigo,$valor)
+    {
+        $sql = "UPDATE estoque_qtd set vl_unit='{$valor}' where codigo='{$codigo}'";
         try {
             if ($operacao = $this->instanciaConexaoPdoAtiva->query($sql)) {
                 if ($operacao->rowCount()) {

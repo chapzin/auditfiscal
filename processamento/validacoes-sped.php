@@ -205,3 +205,55 @@ $daoC100 = new DaoRegC100();
     ?>
     </tbody>
 </table>
+<?php
+// Validacoes registro C100 do SPED
+foreach ($valid->selectAll("reg_c100") as $regC100) {
+    $valida = new Validador();
+    if (trim($regC100->CHV_NFE) <> '') {
+        $nvChave = $valida->validaDigitoNfe($regC100->CHV_NFE);
+        if ($nvChave <> $regC100->CHV_NFE) {
+            echo "<b>Chave errada: </b>- NOTA {$regC100->NUM_DOC} na linha {$regC100->linha} a chave {$regC100->CHV_NFE} = {$nvChave}<br/>";
+        }
+        if (!$valida->validaMesEmissaoNfe($regC100->CHV_NFE, $regC100->DT_DOC) and $regC100->COD_SIT == '00') {
+            echo "<b>Dt Emit Errada:</b> NOTA {$regC100->NUM_DOC} na linha {$regC100->linha} a chave {$regC100->CHV_NFE}<br/>";
+        }
+        if (!$valida->validaNumeroNfe($regC100->CHV_NFE, $regC100->NUM_DOC)) {
+            echo "<b>Nfe numero errado:</b> NOTA {$regC100->NUM_DOC} na linha {$regC100->linha} a chave {$regC100->CHV_NFE}<br/>";
+        }
+    }
+}
+$r0150 = new DaoReg0150();
+// Valida IE
+foreach ($r0150->listaComUF() as $reg0150) {
+    $valida = new Validador();
+    if (!$valida->inscricao_estadual($reg0150->IE, $reg0150->uf)) {
+        if (trim($reg0150->CNPJ) <> '') {
+            if ($reg0150->IE <> '') {
+                echo "<b>IE Errado UF:</b> O Participante {$reg0150->COD_PART} - {$reg0150->CNPJ} - {$reg0150->NOME} esta com IE {$reg0150->IE} da UF {$reg0150->uf} errado na linha {$reg0150->linha}<br/>";
+            }
+        }
+    }
+}
+// Verificar IE sped vs xml
+foreach ($r0150->listaSpedVsXml() as $reg0150) {
+    if ($reg0150->SpedIE <> $reg0150->XmlIE) {
+        echo "<b>IE diferente da NFE</b>O Participante - {$reg0150->SpedCnpj} - {$reg0150->SpedNome} - esta com IE: {$reg0150->SpedIE} e no xml é {$reg0150->XmlIE} na linha do sped {$reg0150->linha}<br/>";
+    }
+}
+// Verifica Sped vs Xml cabeça da nota
+foreach($valid->divergenciasNfeXSped() as $spedxml){
+    $dataSped = date_create($spedxml->SpedDtDoc);
+    $dataSped = date_format($dataSped,'Y-m-d');
+    $dataXml = date_create($spedxml->XmlDtDoc);
+    $dataXml = date_format($dataXml,'Y-m-d');
+    if ($spedxml->SpedNumDoc <> $spedxml->XmlNumDoc){
+        echo "<b>Numero nota errado:</b>{$spedxml->SpedNumDoc}-{$spedxml->XmlNumDoc}-{$spedxml->linha}<br/>";
+    }
+    if ($dataSped <> $dataXml){
+        echo "<b>Data errada:Sped={$dataSped} e Xml={$dataXml}</b>NFe:{$spedxml->SpedNumDoc}-{$spedxml->XmlNumDoc}- Linha:{$spedxml->linha}<br/>";
+    }
+    if ($spedxml->SpedVlDoc <> $spedxml->XmlVlDoc){
+            echo "<b>Valor nota errada:</b>NFe Sped:{$spedxml->SpedNumDoc} Valor:{$spedxml->SpedVlDoc}- Nfe Xml:{$spedxml->XmlNumDoc} Valor:{$spedxml->XmlVlDoc}- Chave: {$spedxml->SpedChave} -Linha Sped:{$spedxml->linha}<br/>";
+    }
+}
+

@@ -125,6 +125,7 @@ class Validador
          *     - Assume-se que a verificação do formato das variáveis de entrada é feita antes da execução deste script.
          */
         $chave = substr($chave,0,-1);
+        //echo $chave."<br/>";
         $soma = 0;
         $fator = 2;
         /* Separacao dos numeros */
@@ -152,6 +153,7 @@ class Validador
         } elseif ($r == 1){
             $resto = $soma % 11;
             return $chave.$resto;
+
         }
     }
 

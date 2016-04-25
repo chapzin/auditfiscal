@@ -15,9 +15,15 @@ while($arquivo = $xmls->read()){
         if($ext == 'xml'){
             $conteudo_xml = file_get_contents($caminho.$arquivo);
             $regC100xml = new RegC100();
+            $reg0150xml = new Reg0150();
             $PersistenciaC100Xml = new DaoRegC100();
+            $Persistencia0150Xml = new DaoReg0150();
             if($regC100xml->populaXml($conteudo_xml)){
                 $PersistenciaC100Xml->createXml($regC100xml);
+            }
+            if($reg0150xml->populaXml($conteudo_xml)){
+                $Persistencia0150Xml->createXml($reg0150xml);
+
             }
 
         }

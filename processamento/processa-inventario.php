@@ -1,17 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: casa
- * Date: 17/04/2016
- * Time: 15:29
- */
-/*
-require_once '../libs/DaoReg0200.php';
-require_once '../libs/DaoRegC170.php';
-require_once '../libs/DaoRegC425.php';
-require_once '../libs/DaoEstoqueQtd.php';
-require_once '../libs/DaoRegH010.php';
-*/
+
 require_once '__analisar_autoload.php';
 $contaCodigo = 0;
 $contaInvIni = 0;
@@ -42,7 +30,7 @@ foreach ($r0200->selectDistinct() as $produto) {
 $rH010 = new DaoRegH010();
 foreach ($rH010->selectAll("reg_h010", "where dtInv='2010-12-31'") as $produto) {
     $est = new DaoEstoqueQtd();
-    if ($est->updateInvIni($produto->COD_ITEM, $produto->QTD)) {
+    if ($est->updateInvIni($produto->COD_ITEM, $produto->QTD,$produto->VL_UNIT)) {
         $contaInvIni += 1;
     } else {
         echo "Erro ao adicionar inventario inicial <br/>";
@@ -98,20 +86,89 @@ foreach ($rC425->selectTotalCF() as $saidasCF){
 $rH010 = new DaoRegH010();
 foreach ($rH010->selectAll("reg_h010", "where dtInv='2011-12-31'") as $produto) {
     $est = new DaoEstoqueQtd();
-    if ($est->updateInvFin($produto->COD_ITEM, $produto->QTD)) {
+    if ($est->updateInvFin($produto->COD_ITEM, $produto->QTD,$produto->VL_UNIT)) {
         $contaInvFin += 1;
     } else {
         echo "Erro ao adicionar inventario inicial <br/>";
     }
 }
 
-// Verifica diferenças de estoque
+// Verifica diferenças de estoque e atualiza o campo diferença
 $estoque = new DaoEstoqueQtd();
 foreach ($estoque->selectAll("estoque_qtd") as $est){
     // Calculando
     $diferenca = ($est->inv_ini+$est->entradas+$est->entrada_terceiro) - ($est->saidas_nf+$est->saidas_cf);
+    $estUp = new DaoEstoqueQtd();
+    $estUp->updateDiferenca($est->codigo,$diferenca);
     if($diferenca <> $est->inv_final){
-        echo "O codigo {$est->codigo} inv_final={$est->inv_final} e correto={$diferenca}<br/>";
+        //echo "O codigo {$est->codigo} inv_final={$est->inv_final} e correto={$diferenca}<br/>";
+    }
+}
+
+
+// Lista estoque sem valores unitários
+$estoque = new DaoEstoqueQtd();
+foreach($estoque->selectAll("estoque_qtd","where vl_unit is null") as $est){
+    if($est->entrada_terceiro > 0){
+        $estC170 = new DaoRegC170();
+        $obj = $estC170->vlUnitMedioEntradaTerceiro($est->codigo);
+        //print_r($obj);
+        //echo "Testeeeeeeeeeeeeee - {$obj->COD_ITEM} e valor {$obj->VL_UNIT} <br/> ";
+        $estoque->updateVlUnit($obj->COD_ITEM,$obj->VL_UNIT);
+    }
+    if(trim($est->entrada_terceiro) =='' and $est->saidas_cf > 0){
+        $estC425 = new DaoRegC425();
+        $obj = $estC425->vlUnitMedioCF($est->codigo);
+        $custo = $obj->VL_UNIT/2;
+        $estoque->updateVlUnit($obj->COD_ITEM,$custo);
+    }
+}
+
+
+// Atualiza estoque nos inventarios
+$estoque = new DaoEstoqueQtd();
+foreach($estoque->selectAll("estoque_qtd","where diferenca <> 0") as $est){
+    // Atualiza o inventario inicial
+    if($est->inv_ini > 0 and $est->diferenca < 0){
+        $diferenca = $est->diferenca * -1;
+        $novo_inv_ini = $diferenca + $est->inv_final + $est->inv_ini;
+        $rH010 = new DaoRegH010();
+        if($rH010->updateQtd($novo_inv_ini,$est->vl_unit,$est->codigo,'2010-12-31')){
+            // Diz alguma coisa aqui rsrsrs
+        }
+
+    }
+
+    // Adicionar Inv inicial
+    if(trim($est->inv_ini) == '' and $est->diferenca < 0){
+        $diferenca = $est->diferenca * -1;
+        $novo_inv_ini = $diferenca + $est->inv_final + $est->inv_ini;
+        $r010 = new RegH010();
+        $r010->setReg('H010');
+        $r010->setCodItem($est->codigo);
+        $r010->setUnid('UN');
+        $r010->setQtd($novo_inv_ini);
+        $r010->setVlUnit($est->vl_unit);
+        $r010->setVlItem($est->vl_unit*$novo_inv_ini);
+        $r010->setIndProp(0);
+        $r010->setCodPart('');
+        $r010->setTxtCompl('');
+        $r010->setCodCta('11601001');
+        $r010->setVlItemIr(0);
+        $r010->setDataInv('2010-12-31');
+        $rH010 = new DaoRegH010();
+        $rH010->createSped($r010,0,'-1');
+    }
+
+    // Atualiza o inventario final
+    if($est->inv_final > 0 and $est->diferenca > 0){
+        // Se o invantario final for igual a diferenca o inventario final está correto
+        if($est->inv_final <> $est->diferenca){
+            $rH010 = new DaoRegH010();
+            if($rH010->updateQtd($est->diferenca,$est->vl_unit,$est->codigo,'2011-12-31')){
+                // Diz alguma coisa tb no update inv final
+            }
+        }
     }
 }
 
